@@ -55,7 +55,9 @@ body {
     font-weight: 300;
     background-color: var(--noir);
     color: var(--blanc-creme);
-    background-image: url("images/k2bxjslly5nboqwbamap.webp");
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("images/k2bxjslly5nboqwbamap.webp");
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -219,6 +221,7 @@ img { display: block; max-width: 100%; }
 /* "Paris · Depuis 2016" */
 .hero-eyebrow {
     font-family: var(--font-corps);
+    font-weight: 600;
     font-size: 11px;
     letter-spacing: 5px;
     text-transform: uppercase;
@@ -252,8 +255,8 @@ img { display: block; max-width: 100%; }
 .hero-description {
     font-family: var(--font-corps);
     font-size: 15px;
-    font-weight: 300;
-    color: rgba(245, 240, 232, 0.85);
+    font-weight: 500;
+    color: #f5f0e8d9;
     line-height: 1.9;
     animation: fadeUp 0.8s 0.3s ease both;
 }
@@ -737,21 +740,6 @@ textarea {
     border-radius: var(--radius-lg);
     border: 1px solid rgba(212,175,55,0.2);
     filter: grayscale(20%) contrast(1.05);
-}
-body {
-    padding-top: 130px;
-}
-.salon-intro {
-    padding-top: 40px;
-    margin-bottom: 60px;
-}
-
-.salon-container {
-    background: rgba(8, 8, 8, 0.88);
-    backdrop-filter: blur(6px);
-    padding-top: 60px;
-    padding-bottom: 70px;
-    min-height: calc(100vh - 130px);
 }
 
 /* ============================================================
