@@ -759,7 +759,180 @@ textarea {
 }
 
 /* ============================================================
-   11. ANIMATIONS
+   11. PAGE MENTIONS LÉGALES
+   ============================================================ */
+.mentions-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 160px 40px 80px;
+}
+
+.mentions-intro {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.mentions-intro h2 {
+    font-family: var(--font-titre);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--blanc-creme);
+    margin-bottom: 20px;
+}
+
+.mentions-intro h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--or);
+    margin: 18px auto 0;
+}
+
+.mentions-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.mentions-block {
+    background: rgba(10, 10, 10, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    backdrop-filter: blur(12px);
+    transition: var(--transition);
+}
+
+.mentions-block:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.mentions-block h3 {
+    font-family: var(--font-titre);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--or);
+    margin-bottom: 14px;
+}
+
+.mentions-block p {
+    font-size: 14px;
+    color: var(--gris-clair);
+    line-height: 2;
+}
+
+.mentions-email {
+    color: var(--or);
+    font-weight: 500;
+}
+
+/* ============================================================
+   12. PAGE POLITIQUE DE CONFIDENTIALITÉ
+   ============================================================ */
+.politique-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 160px 40px 80px;
+}
+
+.politique-intro {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.politique-intro h2 {
+    font-family: var(--font-titre);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--blanc-creme);
+    margin-bottom: 16px;
+}
+
+.politique-intro h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--or);
+    margin: 18px auto 0;
+}
+
+.politique-intro p {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gris);
+}
+
+.politique-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.politique-block {
+    background: rgba(10, 10, 10, 0.92);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    backdrop-filter: blur(12px);
+    transition: var(--transition);
+}
+
+.politique-block:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.politique-block h3 {
+    font-family: var(--font-titre);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--or);
+    margin-bottom: 14px;
+}
+
+.politique-block p {
+    font-size: 14px;
+    color: var(--gris-clair);
+    line-height: 2;
+}
+
+.politique-list {
+    list-style: none;
+    margin: 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.politique-list li {
+    font-size: 14px;
+    color: var(--gris-clair);
+    padding-left: 20px;
+    position: relative;
+}
+
+.politique-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 1px;
+    background: var(--or);
+}
+
+.politique-highlight {
+    color: var(--or);
+    font-weight: 500;
+}
+
+/* ============================================================
+   13. ANIMATIONS
    ============================================================ */
 @keyframes fadeUp {
     from {
