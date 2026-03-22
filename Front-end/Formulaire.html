@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <img src="images/White_Barber_Logo.png" alt="Logo Johnny Barber" class="logo">
+
+        <h1>Salon de coiffure</h1>
+    </header>
+
+    <nav class="nav">
+        <a href="index.html">Accueil</a>
+        <a href="Salon.html">Salon</a>
+        <a href="formulaire.html">Réservation</a>
+    </nav>
+    
+    </header>
+    <main class="booking">
+
+        <h1>Réserver un rendez-vous</h1>
+        <p class="subtitle">Prenez rendez-vous en quelques secondes</p>
+
+        <form class="form-booking">
+
+            <div class="input-group">
+                <label>Nom complet</label>
+                <input type="text" placeholder="Ex: Mamadou Diallo" required>
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" placeholder="exemple@mail.com" required>
+            </div>
+
+            <div class="input-group">
+                <label>Téléphone</label>
+                <input type="tel" placeholder="06 12 34 56 78" required>
+            </div>
+
+            <div class="input-group">
+                <label>Service</label>
+                <select required>
+                    <option>Choisir un service</option>
+                    <option>Coupe homme</option>
+                    <option>Coupe femme</option>
+                    <option>Barbe</option>
+                    <option>Coloration</option>
+                </select>
+            </div>
+
+            <div class="double">
+                <div class="input-group">
+                    <label>Date</label>
+                    <input type="date" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Heure</label>
+                    <input type="time" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Message (optionnel)</label>
+                <textarea placeholder="Précisions..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Réserver</button>
+
+        </form>
+
+    </main>
+</body>
+
+</html>
