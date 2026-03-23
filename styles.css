@@ -272,6 +272,11 @@ img { display: block; max-width: 100%; }
     animation: fadeUp 0.8s 0.45s ease both;
 }
 
+/* Bouton réserver maintenant */
+.reserver-maintenant {
+    margin-top: 30px;
+    animation: fadeUp 0.8s 0.6s ease both;
+}
 /* ============================================================
    6. STATS
    ============================================================ */
@@ -972,6 +977,12 @@ textarea {
     height: 1px;
     background: var(--or);
     margin: 28px auto 0;
+}
+
+.services-cta {
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    justify-content: center;
 }
  
 /* ── Catégorie (Coiffures / Cosmétiques) ── */
