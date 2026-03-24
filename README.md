@@ -188,7 +188,7 @@ CREATE TABLE reservations (
 INSERT INTO admins (nom, email, password) VALUES (
     'Johnny Barber',
     'johnybarber@gmail.com',
-    '$2y$10$MyuDizIss1fz5btooT/GJueerHN4AF4Efj22fYPNBQM74Yire/gNe'
+    '$2y$10$MyuDizIss1fz5btooT/GJueerHN4AF4Efj22fYPNBQM74Yire/gNe');
 
 INSERT INTO services (nom, prix, duree) VALUES
     ('Coupe homme',  25.00, 60),
