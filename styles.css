@@ -2372,4 +2372,150 @@ td {
     .service-item {
         max-width: 100%;
     }
+
+    /* ── PAGE LOGIN ── */
+    .login-card {
+        padding: 36px 24px;
+        margin: 0 16px;
+    }
+
+    .login-logo h1 {
+        font-size: 26px;
+    }
+
+    /* ── DASHBOARD : sidebar devient barre du bas ── */
+    body.admin {
+        flex-direction: column;
+        padding-bottom: 70px;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: unset;
+        height: 60px;
+        position: fixed;
+        top: unset;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-right: none;
+        border-top: 1px solid rgba(255, 204, 0, 0.12);
+        z-index: 200;
+        padding: 0 12px;
+    }
+
+    .sidebar-logo {
+        display: none;
+    }
+
+    .sidebar nav {
+        flex-direction: row;
+        padding: 0;
+        gap: 4px;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .sidebar nav a {
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px 18px;
+        font-size: 7px;
+        letter-spacing: 1px;
+        border: none;
+    }
+
+    .sidebar nav a i {
+        font-size: 16px;
+        width: auto;
+    }
+
+    .sidebar-footer {
+        border-top: none;
+        flex-direction: row;
+        padding: 0;
+        gap: 4px;
+    }
+
+    .btn-retour,
+    .btn-logout {
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px 14px;
+        font-size: 7px;
+        letter-spacing: 1px;
+        border: none;
+    }
+
+    /* Texte masqué sur mobile, icône seulement */
+    .btn-retour span,
+    .btn-logout span {
+        display: none;
+    }
+
+    .admin-main {
+        margin-left: 0;
+        padding: 24px 16px;
+        gap: 40px;
+    }
+
+    /* Stats empilées */
+    .admin-stats {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .admin-stat {
+        padding: 20px;
+    }
+
+    /* Filtres scrollables */
+    .filtres {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+    }
+
+    .filtre-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* Tableau scrollable horizontalement */
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 600px;
+    }
+
+    /* Actions empilées */
+    .actions {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .btn, .btn-ok, .btn-no, .btn-retour-attente {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Formulaire service : 1 colonne */
+    .admin-form-card {
+        padding: 24px 16px;
+    }
+
+    .admin-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Grille services : 1 colonne */
+    .admin-produits-grid {
+        grid-template-columns: 1fr;
+    }
 }
