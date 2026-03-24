@@ -1,6 +1,6 @@
 # Johnny Barber — Site web & Système de réservation
 
-> Salon de coiffure parisien. Site vitrine avec formulaire de réservation en ligne et interface d'administration complète.
+> Salon de coiffure parisien fondé en 2016. Site vitrine avec prise de rendez-vous en ligne et interface d'administration complète.
 
 ---
 
@@ -21,11 +21,11 @@
 
 ## Présentation
 
-**Johnny Barber** est un site web complet pour un salon de coiffure parisien. Il comprend :
+**Johnny Barber** est un site web complet pour un salon de coiffure situé au 12 rue de la Paix, 75002 Paris. Il comprend :
 
 - Un **site vitrine** présentant le salon, les services et les tarifs
-- Un **formulaire de réservation** en ligne avec validation et confirmation par email
-- Un **dashboard administrateur** sécurisé pour gérer les rendez-vous et les services
+- Un **formulaire de réservation** en ligne avec validation double (client + serveur) et notifications par email
+- Un **dashboard administrateur** sécurisé par session PHP pour gérer les rendez-vous et les services
 
 ---
 
@@ -33,12 +33,13 @@
 
 | Couche | Technologie |
 |---|---|
-| Frontend | HTML5, CSS3 (custom) |
+| Frontend | HTML5, CSS3 (custom), JavaScript (vanilla) |
 | Backend | PHP 8+ |
 | Base de données | MySQL 8+ (via PDO) |
+| Envoi d'emails | `mail()` PHP natif + PHPMailer (bibliothèque incluse) |
 | Serveur local | Laragon (Apache + MySQL) |
-| Icônes | Font Awesome 6.5.0 |
-| Polices | Cormorant Garamond, Montserrat (Google Fonts) |
+| Icônes | Font Awesome 6.5.0 (CDN) |
+| Polices | Cormorant Garamond + Montserrat (Google Fonts) |
 
 ---
 
@@ -47,31 +48,36 @@
 ```
 Jonhy-Barber/
 │
-├── index.html                        # Page d'accueil
-├── styles.css                        # Feuille de styles globale
+├── index.html                            # Page d'accueil
+├── styles.css                            # Feuille de styles globale (toutes les pages)
+├── script.js                             # JS global : scroll header, animations reveal, nav active ...
 │
-├── images/                           # Médias (logo, photos services, fond)
-│   ├── White_Barber_Logo.png
+├── images/                               # Médias du site
+│   ├── White_Barber_Logo.png             # Logo blanc
+│   ├── k2bxjslly5nboqwbamap.webp        # Image de fond (hero)
 │   ├── coupe homme.jpg
 │   ├── barbe.webp
 │   ├── coloration.jpg
-│   └── ...
+│   ├── produits.jpg
+│   └── Untitled_design_1.jpg
 │
 ├── Front-end/
-│   ├── Formulaire.html               # Formulaire de réservation
-│   ├── Salon.html                    # Page de présentation du salon
-│   ├── services.html                 # Page des services & tarifs
-│   ├── mentions_legales.html         # Mentions légales
-│   └── politique_confidentialite.html
+│   ├── Formulaire.html                   # Formulaire de réservation
+│   ├── Salon.html                        # Présentation du salon + carte Google Maps
+│   ├── services.html                     # Catalogue complet des prestations & produits
+│   ├── mentions_legales.html             # Mentions légales
+│   └── politique_confidentialite.html    # Politique de confidentialité (RGPD)
 │
 └── Back-end/
-    ├── config.php                    # Connexion PDO à la base de données
-    ├── admin_login.php               # Page de connexion administrateur
-    ├── admin_dashboard.php           # Dashboard admin (RDV + services)
-    ├── logout.php                    # Déconnexion (session_destroy)
-    ├── traitement_reservation.php    # Traitement du formulaire de réservation
-    ├── update_rdv.php                # Mise à jour du statut d'un RDV
-    └── save_service.php              # Ajout / suppression d'un service
+   ├── config.php                        # Connexion PDO (BDD : johny_barber)
+   ├── admin_login.php                   # Page + traitement de la connexion admin
+   ├── admin_dashboard.php               # Dashboard : gestion RDV + services
+   ├── logout.php                        # Destruction de session + redirection
+   ├── traitement_reservation.php        # Validation + insertion d'une réservation
+   ├── update_rdv.php                    # Mise à jour du statut d'un RDV
+   ├── save_service.php                  # Ajout / suppression d'un service + upload photo
+   └── hash.php                          # Utilitaire : génère un hash bcrypt (usage unique)
+
 ```
 
 ---
@@ -86,7 +92,7 @@ Jonhy-Barber/
 
 ### Étapes
 
-1. **Cloner ou copier** le projet dans le dossier `www` de Laragon :
+1. **Placer le projet** dans le dossier `www` de Laragon :
    ```
    C:/laragon/www/Jonhy-Barber/
    ```
@@ -96,19 +102,19 @@ Jonhy-Barber/
    CREATE DATABASE johny_barber CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
 
-3. **Importer la structure** (voir section [Base de données](#base-de-données) ci-dessous)
+3. **Importer les tables** (voir section [Base de données](#base-de-données))
+   
 
-4. **Vérifier la configuration** dans `Back-end/config.php` :
+4. **Vérifier `config.php`** si nécessaire :
    ```php
    $pdo = new PDO(
        "mysql:host=localhost;dbname=johny_barber;charset=utf8mb4",
        "root",  // utilisateur MySQL
        "",      // mot de passe (vide par défaut sur Laragon)
-       [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
    );
    ```
 
-5. **Accéder au site** via :
+5. **Accéder au site** :
    ```
    http://localhost/Jonhy-Barber/index.html
    ```
@@ -117,36 +123,35 @@ Jonhy-Barber/
 
 ## Base de données
 
-### Nom de la base : `johny_barber`
+### Nom : `johny_barber`
 
 ### Table `admins`
+
+Stocke les comptes administrateurs. La connexion se fait par **email + mot de passe**.
 
 ```sql
 CREATE TABLE admins (
     id         INT AUTO_INCREMENT PRIMARY KEY,
-    email      VARCHAR(150) NOT NULL,
-    password   VARCHAR(255) NOT NULL,  -- hash bcrypt
+    email      VARCHAR(150) NOT NULL UNIQUE,
+    password   VARCHAR(255) NOT NULL,
+    nom        VARCHAR(100) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
-
-> Le mot de passe est hashé avec `password_hash()` (bcrypt). Pour créer un admin :
-> ```php
-> echo password_hash('votre_mot_de_passe', PASSWORD_DEFAULT);
-> ```
-> Puis insérer le hash en base.
 
 ---
 
 ### Table `services`
 
+Gérée dynamiquement depuis le dashboard (ajout, suppression, upload photo).
+
 ```sql
 CREATE TABLE services (
     id         INT AUTO_INCREMENT PRIMARY KEY,
     nom        VARCHAR(100) NOT NULL,
-    prix       DECIMAL(6,2) NOT NULL,
-    duree      INT NOT NULL,              -- durée en minutes
-    photo      VARCHAR(255) NULL,         -- nom du fichier dans /images/
+    prix       DECIMAL(6,2) NOT NULL,         -- ex: 25.00
+    duree      INT NOT NULL,                  -- durée en minutes
+    photo      VARCHAR(255) NULL,             -- nom du fichier stocké dans /images/
     actif      TINYINT(1) DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -155,6 +160,8 @@ CREATE TABLE services (
 ---
 
 ### Table `reservations`
+
+Alimentée par le formulaire de réservation public. Le statut est géré depuis le dashboard.
 
 ```sql
 CREATE TABLE reservations (
@@ -175,17 +182,17 @@ CREATE TABLE reservations (
 
 ---
 
-### Données par défaut
+### Données de base recommandées
 
 ```sql
--- Admin par défaut (mot de passe : admin123)
-INSERT INTO admins (login, password)
-VALUES ('admin', '$2y$10$VOTRE_HASH_BCRYPT_ICI');
+INSERT INTO admins (nom, email, password) VALUES (
+    'Johnny Barber',
+    'johnybarber@gmail.com',
+    '$2y$10$MyuDizIss1fz5btooT/GJueerHN4AF4Efj22fYPNBQM74Yire/gNe'
 
--- Services de base
 INSERT INTO services (nom, prix, duree) VALUES
     ('Coupe homme',  25.00, 60),
-    ('Coupe femme',  35.00, 75),
+    ('Produits',     13.00, 13),
     ('Barbe',        15.00, 25),
     ('Coloration',   23.00, 45);
 ```
@@ -194,44 +201,67 @@ INSERT INTO services (nom, prix, duree) VALUES
 
 ## Fonctionnalités
 
-### Site vitrine
+### Site vitrine (`index.html`)
 
-- Page d'accueil avec hero, statistiques et aperçu des services
-- Page salon avec informations pratiques et carte
-- Page services avec grille des prestations et tarifs
-- Navigation fixe avec animation dorée active
+- Hero plein écran avec image de fond fixe, slogan et bouton de réservation
+- Section stats : +5 000 clients, 8 ans d'expérience, note 4.5★, 10 000 coupes
+- Aperçu des 4 services principaux avec photos et tarifs
+- Header dynamique au scroll (`script.js`) : fond et ombre s'activent après 50px
+- Navigation active détectée automatiquement par l'URL courante
 
-### Formulaire de réservation
+### Page Salon (`Salon.html`)
 
-- Champs : nom, email, téléphone, service, date, heure, message (optionnel)
-- **Validation côté client** : champs requis, date minimum = aujourd'hui
-- **Validation côté serveur** : format email, date passée, champs vides
-- **Enregistrement en BDD** avec `JOIN` sur la table `services`
-- **Emails automatiques** : confirmation au client + notification au salon
-- **Bannière de retour** : message vert (succès) ou rouge (erreur) après soumission
+- Présentation du lieu avec texte d'introduction
+- 3 blocs d'infos pratiques : adresse, contact, horaires (Lun-Ven 9h-19h / Sam 10h-18h / Dim fermé)
+- Carte Google Maps intégrée (iframe) — 12 rue de la Paix, 75002 Paris
 
-### Dashboard administrateur
+### Page Services (`services.html`)
 
-Accessible via `Back-end/admin_login.php` — authentification requise.
+- Catalogue complet organisé par catégories : Coiffures, Barbe, Couleur & Soin, Produits
+- Chaque prestation affiche : nom, sous-titre, description, prix et durée
+- Bouton "Réserver" sur chaque prestation renvoyant vers `Formulaire.html`
+- Animation d'apparition au scroll via `IntersectionObserver` (`script.js`)
+
+### Formulaire de réservation (`Formulaire.html`)
+
+- Champs : nom complet, email, téléphone, service (select), date, heure, message (optionnel)
+- **Validation côté client** : champs requis HTML5, date minimum = aujourd'hui (JS)
+- **Validation côté serveur** (`traitement_reservation.php`) : format email, date dans le passé, champs vides
+- **Enregistrement en BDD** : `service_id` résolu via requête `SELECT` sur la table `services`
+- **Emails automatiques** via `mail()` : notification au salon + confirmation au client
+- **Bannière de retour** : succès ou liste d'erreurs lus depuis les paramètres `?statut=` et `?msg=`
+- Formulaire désactivé visuellement après une réservation réussie
+
+### Dashboard administrateur (`admin_dashboard.php`)
+
+Accessible via `Back-end/admin_login.php`. Authentification par **email + mot de passe** (bcrypt).
+
+#### Connexion (`admin_login.php`)
+- Formulaire avec icônes Font Awesome dans les champs
+- Toggle affichage / masquage du mot de passe
+- Lien retour vers le site public
+- Message d'erreur si identifiants invalides (`?error=1`)
 
 #### Gestion des rendez-vous
-- Tableau complet des réservations chargé depuis la BDD
-- JOIN sur `services` pour afficher le nom de la prestation
+- Tableau chargé depuis la BDD avec `LEFT JOIN` sur `services` pour afficher le nom de la prestation
+- Dates formatées `dd/mm/YYYY`, heures tronquées à `HH:MM`
 - Compteurs en temps réel : en attente / acceptés / refusés
-- **Filtres** par statut (sans rechargement de page)
-- Boutons **Accepter** / **Refuser** / **Remettre en attente**
-- Messages flash après chaque action
+- **Filtres par statut** (JavaScript, sans rechargement de page)
+- **Accepter / Refuser** via formulaires POST vers `update_rdv.php`
+- **Remettre en attente** pour les RDV déjà traités
+- Messages flash après chaque action, URL nettoyée automatiquement
 
 #### Gestion des services
-- Liste dynamique chargée depuis la BDD
-- **Ajouter** un service : nom, prix (€), durée (min), photo (upload)
-- **Supprimer** un service avec confirmation
-- Upload de photo : validation d'extension (jpg, jpeg, png, webp), nom unique généré automatiquement
+- Grille de cartes chargée dynamiquement depuis la BDD
+- Affichage de la photo du service, ou icône placeholder si absente
+- Prix formaté `25,00 €`, durée en `60 min`
+- **Formulaire d'ajout** : nom, prix (décimal), durée (entier), photo (optionnelle)
+- **Upload photo** : extensions autorisées (jpg, jpeg, png, webp), nom unique via `uniqid()`
+- **Suppression** avec `confirm()` côté navigateur + DELETE en BDD
 
-#### Sécurité de la session
-- Protection de toutes les pages admin par `$_SESSION['admin_id']`
-- Déconnexion propre via `logout.php` (`session_destroy()`)
-- Le bouton "Accueil" ouvre dans un nouvel onglet pour préserver la session
+#### Navigation sidebar
+- Bouton **Accueil** : ouvre `index.html` dans un nouvel onglet (session préservée)
+- Bouton **Déconnexion** : `session_destroy()` + redirection vers `index.html`
 
 ---
 
@@ -239,26 +269,29 @@ Accessible via `Back-end/admin_login.php` — authentification requise.
 
 ### Frontend
 
-| Fichier | Rôle |
+| Fichier | Contenu |
 |---|---|
-| `index.html` | Page d'accueil (hero, stats, services, footer) |
-| `Front-end/Salon.html` | Présentation du salon, horaires, localisation |
-| `Front-end/services.html` | Catalogue complet des services |
-| `Front-end/Formulaire.html` | Formulaire de réservation avec gestion des retours |
+| `index.html` | Accueil : hero, stats, aperçu services, footer |
+| `Front-end/Salon.html` | Salon : présentation, horaires, adresse, Google Maps |
+| `Front-end/services.html` | Catalogue complet : coiffures, barbe, couleur, produits |
+| `Front-end/Formulaire.html` | Réservation en ligne avec retour PHP |
 | `Front-end/mentions_legales.html` | Mentions légales |
-| `Front-end/politique_confidentialite.html` | Politique de confidentialité |
+| `Front-end/politique_confidentialite.html` | Politique de confidentialité (RGPD) |
+| `styles.css` | Styles globaux : variables CSS, header, nav, hero, cards, formulaire, dashboard |
+| `script.js` | Header au scroll, animations reveal, détection nav active |
 
 ### Backend
 
 | Fichier | Rôle |
 |---|---|
-| `config.php` | Connexion PDO sécurisée à la BDD |
-| `admin_login.php` | Formulaire + traitement de la connexion admin |
-| `admin_dashboard.php` | Interface complète de gestion |
-| `logout.php` | Destruction de session + redirection |
-| `traitement_reservation.php` | Validation + insertion d'une réservation |
-| `update_rdv.php` | Mise à jour du statut d'un rendez-vous |
-| `save_service.php` | Ajout ou suppression d'un service en BDD |
+| `config.php` | Connexion PDO à `johny_barber` sur `localhost` |
+| `admin_login.php` | Formulaire + authentification par email/password |
+| `admin_dashboard.php` | Interface admin complète : RDV + services |
+| `logout.php` | `session_destroy()` + redirection vers `index.html` |
+| `traitement_reservation.php` | Validation, insertion BDD, envoi emails |
+| `update_rdv.php` | Met à jour le champ `statut` d'une réservation |
+| `save_service.php` | Ajoute ou supprime un service, gère l'upload photo |
+| `hash.php` | Génère un hash bcrypt — **à supprimer après usage** |
 
 ---
 
@@ -266,49 +299,56 @@ Accessible via `Back-end/admin_login.php` — authentification requise.
 
 | Élément | Valeur |
 |---|---|
-| Couleur principale | `#FFCC00` (or) |
-| Fond | `#000000` (noir) |
-| Texte | `#F8F8F8` (blanc cassé) |
-| Police titres | Cormorant Garamond (Google Fonts) |
-| Police corps | Montserrat (Google Fonts) |
+| Or (couleur principale) | `#FFCC00` |
+| Noir (fond) | `#000000` |
+| Blanc (texte) | `#F8F8F8` |
+| Police titres | Cormorant Garamond (serif, italique) |
+| Police corps | Montserrat (sans-serif, léger) |
 | Icônes | Font Awesome 6.5.0 |
 
-Les dégradés dorés utilisent la variable CSS `--grad-or` :
+Variables CSS principales définies dans `styles.css` :
+
 ```css
---grad-or: linear-gradient(135deg, #FFCC00, #ffe14d, #b89900);
+--or:         #FFCC00;
+--noir:       #000000;
+--blanc:      #F8F8F8;
+--grad-or:    linear-gradient(135deg, #FFCC00, #ffe14d, #b89900);
+--font-titre: 'Cormorant Garamond', Georgia, serif;
+--font-corps: 'Montserrat', sans-serif;
+--transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+--radius:     4px;
 ```
 
 ---
 
 ## Sécurité
 
-- **Injections SQL** : toutes les requêtes utilisent des requêtes préparées PDO avec paramètres nommés (`:param`)
-- **XSS** : toutes les données affichées sont échappées avec `htmlspecialchars()`
-- **Authentification** : mots de passe hashés avec `password_hash()` (bcrypt), vérifiés avec `password_verify()`
-- **Protection des pages admin** : vérification de `$_SESSION['admin_id']` à chaque chargement
-- **Upload de fichiers** : validation de l'extension, nom de fichier régénéré avec `uniqid()` pour éviter les collisions et l'exécution de fichiers malveillants
-- **Validation double** : chaque donnée du formulaire est validée côté client (HTML5 + JS) **et** côté serveur (PHP)
+| Point | Mesure appliquée |
+|---|---|
+| Injections SQL | Requêtes préparées PDO avec paramètres nommés sur toutes les requêtes |
+| XSS | `htmlspecialchars()` sur toutes les données affichées |
+| Authentification | `password_hash()` bcrypt + `password_verify()` |
+| Protection pages admin | Vérification de `$_SESSION['admin_id']` à chaque chargement |
+| Upload fichiers | Validation d'extension, nom régénéré avec `uniqid()` |
+| Validation formulaire | Double couche : HTML5/JS côté client + PHP côté serveur |
+| Fichier sensible | `hash.php` à supprimer après la création du compte admin |
 
 ---
 
 ## À venir / Améliorations possibles
 
-- [ ] Notifications en temps réel pour les nouveaux RDV (badge dans la sidebar)
-- [ ] Filtrage et tri des réservations par date, service ou client
-- [ ] Édition d'un service existant (modifier nom, prix, photo)
+- [ ] Brancher **PHPMailer** pour un envoi SMTP fiable en remplacement de `mail()`
+- [ ] Badge de notifications dans la sidebar : nombre de RDV en attente
+- [ ] Édition d'un service existant (modifier nom, prix, durée, photo)
 - [ ] Pagination du tableau des réservations
+- [ ] Filtrage et tri des réservations par date ou par service
 - [ ] Export CSV des réservations
 - [ ] Système de créneaux horaires avec gestion des disponibilités
-- [ ] Page de confirmation de réservation dédiée (au lieu d'une bannière)
-- [ ] Envoi d'email de rappel 24h avant le rendez-vous
-- [ ] Support multi-administrateurs avec rôles
-
----
-
-## Auteurs
-
-Projet réalisé dans le cadre d'un apprentissage du développement web full-stack (HTML/CSS/PHP/MySQL).
+- [ ] Page de confirmation dédiée après réservation (au lieu de la bannière)
+- [ ] Email de rappel automatique 24h avant le rendez-vous
+- [ ] Support multi-administrateurs avec niveaux d'accès
 
 ---
 
 *© 2026 Johnny Barber — Tous droits réservés*
+*12 rue de la Paix, 75002 Paris · contact@johnnybarber.com · 06 12 34 56 78*
