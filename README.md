@@ -124,7 +124,6 @@ Jonhy-Barber/
 ```sql
 CREATE TABLE admins (
     id         INT AUTO_INCREMENT PRIMARY KEY,
-    login      VARCHAR(100) NOT NULL,
     email      VARCHAR(150) NOT NULL,
     password   VARCHAR(255) NOT NULL,  -- hash bcrypt
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
