@@ -62,7 +62,7 @@ Jonhy-Barber/
 
 **1. Cloner le dépôt**
 ```bash
-git clone https://github.com/votre-utilisateur/Jonhy-Barber.git
+git clone https://github.com/dylanekamga100-a11y/Jonhy-Barber.git
 ```
 
 **2. Placer le projet dans le dossier Laragon**
