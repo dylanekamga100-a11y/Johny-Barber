@@ -137,6 +137,11 @@ CREATE TABLE admins (
     nom        VARCHAR(100) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO admins (nom, email, password) VALUES (
+    'Johnny Barber',
+    'johnybarber@gmail.com',
+    '$2y$10$MyuDizIss1fz5btooT/GJueerHN4AF4Efj22fYPNBQM74Yire/gNe');
 ```
 
 ---
@@ -185,11 +190,6 @@ CREATE TABLE reservations (
 ### Données de base recommandées
 
 ```sql
-INSERT INTO admins (nom, email, password) VALUES (
-    'Johnny Barber',
-    'johnybarber@gmail.com',
-    '$2y$10$MyuDizIss1fz5btooT/GJueerHN4AF4Efj22fYPNBQM74Yire/gNe');
-
 INSERT INTO services (nom, prix, duree) VALUES
     ('Coupe homme',  25.00, 60),
     ('Produits',     13.00, 13),
