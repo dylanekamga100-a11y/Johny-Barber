@@ -39,43 +39,8 @@ $flash_erreur  = $_GET['erreur'] ?? null;
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../styles.css">
-    <style>
-        .flash {
-            padding: 12px 20px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.88rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .flash.ok     { background: #0d2b0d; border-left: 4px solid #4caf50; color: #a5d6a7; }
-        .flash.erreur { background: #2b0d0d; border-left: 4px solid #c62828; color: #ef9a9a; }
+    
 
-        /* Filtre statut */
-        .filtres {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 18px;
-            flex-wrap: wrap;
-        }
-        .filtre-btn {
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1px solid #b8960c;
-            background: transparent;
-            color: #b8960c;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .filtre-btn.active, .filtre-btn:hover {
-            background: #b8960c;
-            color: #000;
-        }
-    </style>
 </head>
 <body class="admin">
 
@@ -90,7 +55,7 @@ $flash_erreur  = $_GET['erreur'] ?? null;
             <a href="#services"><i class="fa-solid fa-scissors"></i> Services</a>
         </nav>
         <div class="sidebar-footer">
-            <a href="../index.html" class="btn-retour" target="_blank">
+            <a href="../index.php" class="btn-retour" target="_blank">
                 <i class="fa-solid fa-arrow-left"></i> Accueil
             </a>
             <a href="logout.php" class="btn-logout">
