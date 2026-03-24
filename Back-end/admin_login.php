@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
     </div>
-
+    <script src="script.js"></script>
     <script>
         function togglePassword() {
             const input = document.getElementById('password');
