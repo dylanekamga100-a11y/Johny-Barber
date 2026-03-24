@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_write_close();
         header("Location: admin_dashboard.php");
         exit;
-    } else {
+    } else { 
         header("Location: admin_login.php?error=1");
         exit;
     }
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             </form>
 
-            <a href="../index.html" class="back-link">
+            <a href="../index.php" class="back-link">
                 <i class="fa-solid fa-chevron-left"></i> Retour au site
             </a>
 
