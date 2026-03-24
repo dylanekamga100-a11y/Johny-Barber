@@ -286,7 +286,7 @@ $flash_erreur  = $_GET['erreur'] ?? null;
         </div>
 
     </main>
-
+    <script src="script.js"></script>
     <script>
         // ── Filtre des lignes du tableau par statut ──
         function filtrer(statut, btn) {
