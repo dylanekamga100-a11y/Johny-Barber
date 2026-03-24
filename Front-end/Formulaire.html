@@ -1,55 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Réservation — Johnny Barber</title>
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
     <header class="header">
-        <img src="../images/Logo_footer.png" alt="Logo Johnny Barber" class="logo">
-
+        <img src="../images/White_Barber_Logo.png" alt="Logo Johnny Barber" class="logo">
         <h1>Salon de coiffure</h1>
+        <div class="header-actions">
+            <a href="../Back-end/admin_login.php" class="btn-admin" title="Espace administrateur">
+                <i class="fa-solid fa-circle-user"></i>
+            </a>
+        </div>
     </header>
 
     <nav class="nav">
         <a href="../index.html">Accueil</a>
         <a href="./Salon.html">Salon</a>
         <a href="./services.html">Services</a>
-        <a href="formulaire.html" class="active">Réservation</a>
+        <a href="./Formulaire.html" class="active">Réservation</a>
     </nav>
-    
-    </header>
+
     <main class="booking">
 
         <h1>Réserver un rendez-vous</h1>
         <p class="subtitle">Prenez rendez-vous en quelques secondes</p>
 
-        <form class="form-booking">
+        <!-- ── Notification dynamique (gérée par JS) ── -->
+        <div id="notif" class="notif">
+            <i id="notif-icon"></i>
+            <div id="notif-content"></div>
+        </div>
+
+        <form class="form-booking" id="form-booking" action="../Back-end/traitement_reservation.php" method="POST">
 
             <div class="input-group">
                 <label>Nom complet</label>
-                <input type="text" placeholder="Ex: Mamadou Diallo" required>
+                <input type="text" name="nom" placeholder="Ex: Mamadou Diallo" required>
             </div>
 
             <div class="input-group">
                 <label>Email</label>
-                <input type="email" placeholder="exemple@mail.com" required>
+                <input type="email" name="email" placeholder="exemple@mail.com" required>
             </div>
 
             <div class="input-group">
                 <label>Téléphone</label>
-                <input type="tel" placeholder="06 12 34 56 78" required>
+                <input type="tel" name="telephone" placeholder="06 12 34 56 78" required>
             </div>
 
             <div class="input-group">
                 <label>Service</label>
-                <select required>
-                    <option>Choisir un service</option>
+                <select name="service" required>
+                    <option value="Choisir un service">Choisir un service</option>
                     <option>Coupe homme</option>
                     <option>Coupe femme</option>
                     <option>Barbe</option>
@@ -60,18 +70,17 @@
             <div class="double">
                 <div class="input-group">
                     <label>Date</label>
-                    <input type="date" required>
+                    <input type="date" name="date" required>
                 </div>
-
                 <div class="input-group">
                     <label>Heure</label>
-                    <input type="time" required>
+                    <input type="time" name="heure" required>
                 </div>
             </div>
 
             <div class="input-group">
                 <label>Message (optionnel)</label>
-                <textarea placeholder="Précisions..."></textarea>
+                <textarea name="message" placeholder="Précisions..."></textarea>
             </div>
 
             <button type="submit" class="btn-submit">Réserver</button>
@@ -98,11 +107,11 @@
             <div class="footer-section">
                 <h4>Navigation</h4>
                 <p><a href="../index.html">Accueil</a></p>
-                <p><a href="./Front-end/Salon.html">Notre salon</a></p>
-                <p><a href="./Front-end/services.html">Nos services</a></p>
-                <p><a href="Formulaire.html">Réservation</a></p>
-                <p><a href="./Front-end/service.html">Mentions légales</a></p>
-                <p><a href="./Front-end/politique_confidentialite.html">Politique de confidentialité</a></p>
+                <p><a href="./Salon.html">Notre salon</a></p>
+                <p><a href="./services.html">Nos services</a></p>
+                <p><a href="./Formulaire.html">Réservation</a></p>
+                <p><a href="./mentions_legales.html">Mentions légales</a></p>
+                <p><a href="./politique_confidentialite.html">Politique de confidentialité</a></p>
             </div>
 
         </div>
@@ -111,7 +120,56 @@
             <p>© 2026 Johnny Barber — Tous droits réservés</p>
         </div>
     </footer>
-    <script src="script.js"></script>
-</body>
 
+    <script>
+        // ── Lecture du paramètre ?statut= dans l'URL ──
+        const params  = new URLSearchParams(window.location.search);
+        const statut  = params.get("statut");
+        const prenom  = params.get("prenom") || "";
+        const msgBrut = params.get("msg") || "";
+
+        const notif   = document.getElementById("notif");
+        const icon    = document.getElementById("notif-icon");
+        const content = document.getElementById("notif-content");
+
+        if (statut === "succes") {
+            notif.classList.add("show", "succes");
+            icon.className = "fa-solid fa-circle-check";
+            content.innerHTML = `<strong>Réservation confirmée !</strong>
+                ${prenom ? "Merci " + prenom + "," : "Merci,"} votre demande a bien été enregistrée.
+                Vous recevrez un email de confirmation dans quelques instants.`;
+
+            // Masquer le formulaire et afficher seulement le message
+            document.getElementById("form-booking").style.opacity = "0.4";
+            document.getElementById("form-booking").style.pointerEvents = "none";
+
+            // Nettoyage de l'URL (sans rechargement)
+            window.history.replaceState({}, "", window.location.pathname);
+
+        } else if (statut === "erreur") {
+            notif.classList.add("show", "erreur");
+            icon.className = "fa-solid fa-circle-exclamation";
+
+            if (msgBrut) {
+                const erreurs = msgBrut.split("|");
+                let liste = "<strong>Des erreurs ont été détectées :</strong><ul>";
+                erreurs.forEach(e => { liste += `<li>${e}</li>`; });
+                liste += "</ul>";
+                content.innerHTML = liste;
+            } else {
+                content.innerHTML = "<strong>Une erreur est survenue.</strong> Veuillez vérifier vos informations et réessayer.";
+            }
+
+            window.history.replaceState({}, "", window.location.pathname);
+        }
+
+        // ── Date minimum = aujourd'hui ──
+        const inputDate = document.querySelector("input[name='date']");
+        if (inputDate) {
+            const today = new Date().toISOString().split("T")[0];
+            inputDate.min = today;
+        }
+    </script>
+
+</body>
 </html>
