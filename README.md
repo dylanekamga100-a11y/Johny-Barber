@@ -125,9 +125,9 @@ Jonhy-Barber/
 
 ### Nom : `johny_barber`
 
-### Table `admins`
+### Tables `admins`, `services` et `reservations`
 
-Stocke les comptes administrateurs. La connexion se fait par **email + mot de passe**.
+Stocke les comptes administrateurs. La connexion se fait par **email + mot de passe**. Gère dynamiquement depuis le dashboard (ajout, suppression, upload photo). Alimentée par le formulaire de réservation public. Le statut est géré depuis le dashboard.
 
 ```sql
 CREATE TABLE admins (
@@ -142,15 +142,7 @@ INSERT INTO admins (nom, email, password) VALUES (
     'Johnny Barber',
     'johnybarber@gmail.com',
     '$2y$10$MyuDizIss1fz5btooT/GJueerHN4AF4Efj22fYPNBQM74Yire/gNe');
-```
 
----
-
-### Table `services`
-
-Gérée dynamiquement depuis le dashboard (ajout, suppression, upload photo).
-
-```sql
 CREATE TABLE services (
     id         INT AUTO_INCREMENT PRIMARY KEY,
     nom        VARCHAR(100) NOT NULL,
@@ -160,15 +152,7 @@ CREATE TABLE services (
     actif      TINYINT(1) DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-```
 
----
-
-### Table `reservations`
-
-Alimentée par le formulaire de réservation public. Le statut est géré depuis le dashboard.
-
-```sql
 CREATE TABLE reservations (
     id         INT AUTO_INCREMENT PRIMARY KEY,
     nom        VARCHAR(100) NOT NULL,
