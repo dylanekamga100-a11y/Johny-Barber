@@ -2158,6 +2158,22 @@ td {
     color: var(--blanc-creme);
 }
 
+/* --- Desktop: on cache le burger --- */
+.burger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 100;
+}
+
+.burger span {
+    width: 25px;
+    height: 2px;
+    background-color: var(--gris-clair);
+    transition: all 0.3s ease;
+}
+
 /* ============================================================
    ANIMATIONS
    ============================================================ */
@@ -2170,5 +2186,190 @@ td {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN POUR MOBILE
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+    /* HEADER */
+    .header {
+        padding: 15px 5%;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header h1 {
+        display: none;
+    }
+
+    .logo img {
+        width: auto;
+        height: 4px;
+    }
+
+    .header-actions {
+        margin-top: 10px;
+    }
+
+    #reserv {
+        display: none;
+    }
+
+    #admine {
+        position: fixed;
+        top: 20px;
+        /* Distance du haut */
+        right: 20px;
+        /* Distance de la droite */
+        z-index: 999;
+        /* Pour qu'il passe au-dessus du reste */
+    }
+
+    /* NAVIGATION */
+
+    .nav {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 14px 0;
+        z-index: 99;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .nav a {
+        font-family: var(--font-corps);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gris-clair);
+        position: relative;
+        padding-bottom: 3px;
+        transition: var(--transition);
+    }
+
+
+    /* HERO */
+    .hero {
+        padding: 100px 5% 80px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-titre {
+        font-size: 32px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .reserver-maintenant {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    /* STATS */
+    .stats {
+        flex-direction: column;
+        padding: 40px 5%;
+    }
+
+    .stat {
+        margin-bottom: 20px;
+    }
+
+    .stat:not(:last-child)::after {
+        display: none;
+    }
+
+    /* SERVICES */
+    .services {
+        padding: 60px 5%;
+    }
+
+    .cards {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .services-cta {
+        text-align: center;
+    }
+
+    /* FOOTER */
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+        padding: 40px 5%;
+    }
+
+    .footer-section {
+        text-align: center;
+    }
+
+    /* PAGE SALON */
+    .salon-container {
+        padding: 120px 20px 60px;
+    }
+
+    .salon-infos {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .info-box {
+        text-align: center;
+    }
+
+    .map-container iframe {
+        height: 300px;
+    }
+
+    /* FORMULAIRE */
+    .booking {
+        padding: 60px 5%;
+    }
+
+    .form-booking {
+        max-width: 100%;
+    }
+
+    .double {
+        flex-direction: column;
+    }
+
+    .double .input-group {
+        width: 100%;
+    }
+
+    /* SERVICES PAGE */
+    .services-page-container {
+        padding: 120px 20px 60px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .service-item {
+        max-width: 100%;
     }
 }
