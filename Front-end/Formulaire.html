@@ -12,7 +12,7 @@
 <body>
 
     <header class="header">
-        <img src="../images/White_Barber_Logo.png" alt="Logo Johnny Barber" class="logo">
+        <img src="../images/Logo_footer.png" alt="Logo Johnny Barber" class="logo">
         <h1>Salon de coiffure</h1>
         <div class="header-actions">
             <a href="../Back-end/admin_login.php" class="btn-admin" title="Espace administrateur">
@@ -61,7 +61,7 @@
                 <select name="service" required>
                     <option value="Choisir un service">Choisir un service</option>
                     <option>Coupe homme</option>
-                    <option>Coupe femme</option>
+                    <option>Produit Cosmétique</option>
                     <option>Barbe</option>
                     <option>Coloration</option>
                 </select>
@@ -70,11 +70,11 @@
             <div class="double">
                 <div class="input-group">
                     <label>Date</label>
-                    <input type="date" name="date" required>
+                    <input class="date-time" type="date" id="date-reservation" name="date" required>
                 </div>
                 <div class="input-group">
                     <label>Heure</label>
-                    <input type="time" name="heure" required>
+                    <input class="date-time" type="time" name="heure" min="09:00" max="20:30" required>
                 </div>
             </div>
 
@@ -93,7 +93,8 @@
         <div class="footer-container">
 
             <div class="footer-section">
-                <h3>Johnny Barber</h3>
+                <img src="../images/Logo.png" alt="Logo Johnny Barber" class="logo">
+                <h4>Johnny Barber</h4>
                 <p>Excellence dans chaque détail.<br>Votre style, notre passion.</p>
             </div>
 
@@ -120,16 +121,16 @@
             <p>© 2026 Johnny Barber — Tous droits réservés</p>
         </div>
     </footer>
-
+    <script src="../script.js"></script>
     <script>
         // ── Lecture du paramètre ?statut= dans l'URL ──
-        const params  = new URLSearchParams(window.location.search);
-        const statut  = params.get("statut");
-        const prenom  = params.get("prenom") || "";
+        const params = new URLSearchParams(window.location.search);
+        const statut = params.get("statut");
+        const prenom = params.get("prenom") || "";
         const msgBrut = params.get("msg") || "";
 
-        const notif   = document.getElementById("notif");
-        const icon    = document.getElementById("notif-icon");
+        const notif = document.getElementById("notif");
+        const icon = document.getElementById("notif-icon");
         const content = document.getElementById("notif-content");
 
         if (statut === "succes") {
@@ -172,4 +173,5 @@
     </script>
 
 </body>
+
 </html>

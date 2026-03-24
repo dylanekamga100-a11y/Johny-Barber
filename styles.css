@@ -14,37 +14,42 @@
    ============================================================ */
 :root {
     /* ── Charte officielle ── */
-    --or:            #FFCC00;
-    --or-clair:      #ffe14d;
-    --or-sombre:     #b89900;
-    --noir:          #000000;
-    --blanc:         #F8F8F8;
+    --or: #FFCC00;
+    --or-clair: #ffe14d;
+    --or-sombre: #b89900;
+    --noir: #000000;
+    --blanc: #F8F8F8;
 
     /* ── Dérivées utilitaires ── */
-    --noir-card:     #111111;
-    --noir-mid:      #1a1a1a;
-    --blanc-creme:   #F8F8F8;   /* identique --blanc pour cohérence */
-    --gris:          #888888;
-    --gris-clair:    #cccccc;
-    --overlay:       rgba(0, 0, 0, 0.6);
+    --noir-card: #111111;
+    --noir-mid: #1a1a1a;
+    --blanc-creme: #F8F8F8;
+    /* identique --blanc pour cohérence */
+    --gris: #888888;
+    --gris-clair: #cccccc;
+    --overlay: rgba(0, 0, 0, 0.6);
 
-    --font-titre:    'Cormorant Garamond', Georgia, serif;
-    --font-corps:    'Montserrat', sans-serif;
+    --font-titre: 'Cormorant Garamond', Georgia, serif;
+    --font-corps: 'Montserrat', sans-serif;
 
-    --grad-or:       linear-gradient(135deg, #FFCC00, #ffe14d, #b89900);
-    --grad-header:   linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
+    --grad-or: linear-gradient(135deg, #FFCC00, #ffe14d, #b89900);
+    --grad-header: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
 
-    --transition:    0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    --radius:        4px;
-    --radius-lg:     12px;
+    --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 4px;
+    --radius-lg: 12px;
 }
 
 /* ============================================================
    2. RESET & BASE
    ============================================================ */
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -55,7 +60,7 @@ body {
     font-weight: 300;
     background-color: var(--noir);
     color: var(--blanc-creme);
-    background-image: 
+    background-image:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
         url("images/k2bxjslly5nboqwbamap.webp");
     background-attachment: fixed;
@@ -64,8 +69,15 @@ body {
     line-height: 1.6;
 }
 
-a { text-decoration: none; color: inherit; }
-img { display: block; max-width: 100%; }
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
 
 /* ============================================================
    3. HEADER
@@ -81,7 +93,7 @@ img { display: block; max-width: 100%; }
     justify-content: space-between;
     padding: 0 50px;
     z-index: 100;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.92), rgba(0,0,0,0.6));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.6));
     backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(212, 175, 55, 0.15);
 }
@@ -115,7 +127,7 @@ img { display: block; max-width: 100%; }
     color: var(--or);
     border: 1px solid transparent;
     background-image:
-        linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)),
+        linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
         var(--grad-or);
     background-origin: border-box;
     background-clip: padding-box, border-box;
@@ -148,7 +160,7 @@ img { display: block; max-width: 100%; }
 .header-actions .btn-admin:hover {
     opacity: 0.7;
 }
-   
+
 
 /* ============================================================
    4. NAVIGATION
@@ -212,18 +224,17 @@ img { display: block; max-width: 100%; }
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 140px; /* compense header + nav fixes */
+    padding-top: 140px;
+    /* compense header + nav fixes */
 }
 
 .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.3) 0%,
-        rgba(0,0,0,0.55) 60%,
-        rgba(0,0,0,0.85) 100%
-    );
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.3) 0%,
+            rgba(0, 0, 0, 0.55) 60%,
+            rgba(0, 0, 0, 0.85) 100%);
 }
 
 /* Bloc texte centré dans le hero */
@@ -299,14 +310,15 @@ img { display: block; max-width: 100%; }
     animation: fadeUp 0.8s 0.6s ease both;
     font-weight: 600;
 }
+
 /* ============================================================
    6. STATS
    ============================================================ */
 .stats {
-    background: rgba(0,0,0,0.88);
+    background: rgba(0, 0, 0, 0.88);
     backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(212,175,55,0.25);
-    border-bottom: 1px solid rgba(212,175,55,0.25);
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.25);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -327,7 +339,7 @@ img { display: block; max-width: 100%; }
     transform: translateY(-50%);
     height: 40px;
     width: 1px;
-    background: rgba(212,175,55,0.3);
+    background: rgba(212, 175, 55, 0.3);
 }
 
 .stat h2 {
@@ -350,7 +362,7 @@ img { display: block; max-width: 100%; }
    7. SERVICES
    ============================================================ */
 .services {
-    background: rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(10px);
     text-align: center;
     padding: 120px 40px;
@@ -401,7 +413,7 @@ img { display: block; max-width: 100%; }
 
 .card {
     background: var(--noir-card);
-    border: 1px solid rgba(212,175,55,0.1);
+    border: 1px solid rgba(212, 175, 55, 0.1);
     border-radius: var(--radius-lg);
     width: 230px;
     overflow: hidden;
@@ -447,16 +459,16 @@ img { display: block; max-width: 100%; }
 }
 
 .card:hover {
-    border-color: rgba(212,175,55,0.4);
+    border-color: rgba(212, 175, 55, 0.4);
     transform: translateY(-6px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 .btn-all {
     display: inline-block;
     margin-top: 60px;
     padding: 14px 36px;
-    border: 1px solid rgba(212,175,55,0.5);
+    border: 1px solid rgba(212, 175, 55, 0.5);
     border-radius: 30px;
     font-size: 11px;
     letter-spacing: 3px;
@@ -475,8 +487,8 @@ img { display: block; max-width: 100%; }
    8. FOOTER
    ============================================================ */
 .footer {
-    background: rgba(0,0,0,0.97);
-    border-top: 1px solid rgba(212,175,55,0.2);
+    background: rgba(0, 0, 0, 0.97);
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
     padding: 70px 40px 30px;
     font-family: var(--font-corps);
 }
@@ -489,7 +501,7 @@ img { display: block; max-width: 100%; }
     flex-wrap: wrap;
     gap: 50px;
     padding-bottom: 50px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .footer-section h3 {
@@ -529,7 +541,7 @@ img { display: block; max-width: 100%; }
     text-align: center;
     font-size: 11px;
     letter-spacing: 2px;
-    color: rgba(255,255,255,0.2);
+    color: rgba(255, 255, 255, 0.2);
     text-transform: uppercase;
 }
 
@@ -542,7 +554,7 @@ img { display: block; max-width: 100%; }
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0,0,0,0.82);
+    background: rgba(0, 0, 0, 0.82);
     backdrop-filter: blur(12px);
 }
 
@@ -586,8 +598,8 @@ img { display: block; max-width: 100%; }
 .input-group textarea {
     padding: 14px 18px;
     border-radius: var(--radius);
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
     color: var(--blanc-creme);
     font-family: var(--font-corps);
     font-size: 14px;
@@ -599,8 +611,8 @@ img { display: block; max-width: 100%; }
 .input-group input:focus,
 .input-group select:focus,
 .input-group textarea:focus {
-    border-color: rgba(212,175,55,0.5);
-    background: rgba(212,175,55,0.04);
+    border-color: rgba(212, 175, 55, 0.5);
+    background: rgba(212, 175, 55, 0.04);
 }
 
 .input-group select option {
@@ -636,7 +648,7 @@ textarea {
     text-transform: uppercase;
     border: 1px solid transparent;
     background-image:
-        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
         var(--grad-or);
     background-origin: border-box;
     background-clip: padding-box, border-box;
@@ -652,28 +664,60 @@ textarea {
 }
 
 /* ── Bannière de notification ── */
-        .notif {
-            display: none;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 24px;
-            border-radius: 6px;
-            margin: 24px auto;
-            max-width: 680px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.95rem;
-            animation: fadeSlide 0.4s ease;
-        }
-        .notif.show     { display: flex; }
-        .notif.succes   { background: #0d2b0d; border-left: 4px solid #4caf50; color: #a5d6a7; }
-        .notif.erreur   { background: #2b0d0d; border-left: 4px solid #c62828; color: #ef9a9a; }
-        .notif i        { font-size: 1.3rem; flex-shrink: 0; }
-        .notif ul       { margin: 6px 0 0 16px; padding: 0; }
-        .notif ul li    { margin-bottom: 4px; }
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(-10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+.notif {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-radius: 6px;
+    margin: 24px auto;
+    max-width: 680px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    animation: fadeSlide 0.4s ease;
+}
+
+.notif.show {
+    display: flex;
+}
+
+.notif.succes {
+    background: #0d2b0d;
+    border-left: 4px solid #4caf50;
+    color: #a5d6a7;
+}
+
+.notif.erreur {
+    background: #2b0d0d;
+    border-left: 4px solid #c62828;
+    color: #ef9a9a;
+}
+
+.notif i {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.notif ul {
+    margin: 6px 0 0 16px;
+    padding: 0;
+}
+
+.notif ul li {
+    margin-bottom: 4px;
+}
+
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* ============================================================
    10. PAGE SALON
@@ -683,9 +727,9 @@ textarea {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,0.92);
+    background: rgba(0, 0, 0, 0.92);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(212,175,55,0.15);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
 }
 
 .salon-header h1 {
@@ -755,7 +799,7 @@ textarea {
     flex: 1;
     min-width: 240px;
     background: rgba(10, 10, 10, 0.92);
-    border: 1px solid rgba(212,175,55,0.35);
+    border: 1px solid rgba(212, 175, 55, 0.35);
     border-radius: var(--radius-lg);
     padding: 30px;
     backdrop-filter: blur(12px);
@@ -805,7 +849,7 @@ textarea {
     width: 100%;
     height: 420px;
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(212,175,55,0.2);
+    border: 1px solid rgba(212, 175, 55, 0.2);
     filter: grayscale(20%) contrast(1.05);
 }
 
@@ -985,20 +1029,20 @@ textarea {
 /* ============================================================
    13. PAGE SERVICES
    ============================================================ */
- 
+
 /* Conteneur principal */
 .services-page-container {
     max-width: 1100px;
     margin: auto;
     padding: 160px 40px 80px;
 }
- 
+
 /* Intro */
 .services-page-intro {
     text-align: center;
     margin-bottom: 80px;
 }
- 
+
 .services-page-intro h2 {
     font-family: var(--font-titre);
     font-size: clamp(32px, 5vw, 52px);
@@ -1007,7 +1051,7 @@ textarea {
     color: var(--blanc-creme);
     margin-bottom: 20px;
 }
- 
+
 .services-page-desc {
     font-size: 14px;
     color: var(--gris);
@@ -1015,7 +1059,7 @@ textarea {
     margin: 0 auto;
     line-height: 1.9;
 }
- 
+
 .services-page-desc::after {
     content: '';
     display: block;
@@ -1030,19 +1074,19 @@ textarea {
     backdrop-filter: blur(10px);
     justify-content: center;
 }
- 
+
 /* ── Catégorie (Coiffures / Cosmétiques) ── */
 .services-category {
     margin-bottom: 80px;
 }
- 
+
 .category-header {
     display: flex;
     align-items: center;
     gap: 16px;
     margin-bottom: 40px;
 }
- 
+
 .category-icon {
     width: 40px;
     height: 40px;
@@ -1055,7 +1099,7 @@ textarea {
     font-size: 15px;
     flex-shrink: 0;
 }
- 
+
 .category-header h3 {
     font-family: var(--font-titre);
     font-size: 28px;
@@ -1064,13 +1108,13 @@ textarea {
     letter-spacing: 2px;
     white-space: nowrap;
 }
- 
+
 .category-line {
     flex: 1;
     height: 1px;
     background: rgba(212, 175, 55, 0.2);
 }
- 
+
 /* ── Sous-catégorie ── */
 .subcategory-label {
     font-size: 11px;
@@ -1083,19 +1127,19 @@ textarea {
     align-items: center;
     gap: 10px;
 }
- 
+
 .subcategory-label i {
     font-size: 10px;
     opacity: 0.7;
 }
- 
+
 /* ── Grille de services ── */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
 }
- 
+
 /* ── Carte service ── */
 .service-item {
     background: rgba(10, 10, 10, 0.92);
@@ -1105,13 +1149,13 @@ textarea {
     transition: var(--transition);
     backdrop-filter: blur(12px);
 }
- 
+
 .service-item:hover {
     border-color: rgba(212, 175, 55, 0.4);
     transform: translateY(-4px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
 }
- 
+
 .service-item-inner {
     padding: 28px;
     display: flex;
@@ -1119,7 +1163,7 @@ textarea {
     height: 100%;
     gap: 10px;
 }
- 
+
 .service-item h4 {
     font-family: var(--font-titre);
     font-size: 22px;
@@ -1127,7 +1171,7 @@ textarea {
     color: var(--blanc-creme);
     line-height: 1.2;
 }
- 
+
 .service-item-sub {
     font-size: 10px;
     letter-spacing: 3px;
@@ -1135,14 +1179,14 @@ textarea {
     color: var(--or);
     margin-top: -4px;
 }
- 
+
 .service-item-desc {
     font-size: 13px;
     color: var(--gris);
     line-height: 1.8;
     flex: 1;
 }
- 
+
 /* Footer de la carte (prix + bouton) */
 .service-item-footer {
     display: flex;
@@ -1152,13 +1196,13 @@ textarea {
     padding-top: 16px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
- 
+
 .service-meta {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
- 
+
 .service-price {
     font-family: var(--font-titre);
     font-size: 26px;
@@ -1166,7 +1210,7 @@ textarea {
     color: var(--or);
     line-height: 1;
 }
- 
+
 .service-duration {
     font-size: 11px;
     color: var(--gris);
@@ -1175,12 +1219,12 @@ textarea {
     align-items: center;
     gap: 5px;
 }
- 
+
 .service-duration i {
     font-size: 10px;
     color: rgba(212, 175, 55, 0.5);
 }
- 
+
 /* Bouton "Réserver / Acheter" */
 .btn-service {
     padding: 9px 20px;
@@ -1197,7 +1241,7 @@ textarea {
     white-space: nowrap;
     cursor: pointer;
 }
- 
+
 .btn-service:hover {
     background: var(--or);
     border-color: var(--or);
@@ -1211,7 +1255,7 @@ textarea {
 .page-login-body {
     background-color: var(--noir);
     background-image:
-        linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+        linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
         url('../images/k2bxjslly5nboqwbamap.webp');
     background-size: cover;
     background-position: center;
@@ -1454,13 +1498,11 @@ body.admin {
     min-height: 100vh;
     background-color: var(--noir);
     background-image:
-        repeating-linear-gradient(
-            45deg,
+        repeating-linear-gradient(45deg,
             transparent,
             transparent 40px,
             rgba(255, 204, 0, 0.012) 40px,
-            rgba(255, 204, 0, 0.012) 41px
-        );
+            rgba(255, 204, 0, 0.012) 41px);
     background-attachment: fixed;
 }
 
@@ -1665,7 +1707,8 @@ body.admin {
 .admin-stat::before {
     content: '';
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 2px;
     background: var(--grad-or);
@@ -1757,7 +1800,9 @@ tbody tr {
     transition: background 0.15s;
 }
 
-tbody tr:last-child { border-bottom: none; }
+tbody tr:last-child {
+    border-bottom: none;
+}
 
 tbody tr:hover {
     background: rgba(255, 204, 0, 0.025);
@@ -1943,7 +1988,9 @@ td {
 .admin-form-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 2px;
     background: var(--grad-or);
     opacity: 0.4;
@@ -2119,6 +2166,7 @@ td {
         opacity: 0;
         transform: translateY(24px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
