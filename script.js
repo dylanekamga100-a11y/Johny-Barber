@@ -24,31 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. GESTION DU FORMULAIRE DE RÉSERVATION (Formulaire.html)
     const bookingForm = document.querySelector('.form-booking');
-
+    
     if (bookingForm) {
         bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Empêche le rechargement de la page
-
-            // Récupération des données (exemple)
-            const name = bookingForm.querySelector('input[type="text"]').value;
-            const date = bookingForm.querySelector('input[type="date"]').value;
-            const service = bookingForm.querySelector('select').value;
-
-            // Simulation d'envoi
+            // ON NE FAIT PLUS e.preventDefault() ici pour laisser le PHP travailler.
+            
             const submitBtn = bookingForm.querySelector('.btn-submit');
             const originalText = submitBtn.innerText;
-
-            submitBtn.innerText = "Confirmation en cours...";
-            submitBtn.disabled = true;
+        
+            // On donne un feedback visuel avant que la page ne change
+            submitBtn.innerText = "Envoi en cours...";
             submitBtn.style.opacity = "0.7";
-
+            
+            // Optionnel : On peut ajouter une petite sécurité pour éviter les doubles clics
             setTimeout(() => {
-                alert(`Merci ${name} ! Votre rendez-vous pour un(e) "${service}" le ${date} est bien enregistré.`);
-                bookingForm.reset();
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.opacity = "1";
-            }, 1500);
+                submitBtn.disabled = true;
+            }, 1);
         });
     }
 
